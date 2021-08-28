@@ -1,11 +1,11 @@
 # Go cross compiler (xgo): Go 1.3.3 layer
-# Copyright (c) 2014 Péter Szilágyi. All rights reserved.
+# Copyright (c) 2014 Péter Szilágyi / 2021 Christopher Franko. All rights reserved.
 #
 # Released under the MIT license.
 
-FROM karalabe/xgo-base
+FROM chrisfranko/xgo-base
 
-MAINTAINER Péter Szilágyi <peterke@gmail.com>
+MAINTAINER Christopher Franko <chrisjfranko@gmail.com>
 
 # Configure the Go packages and bootstrap them
 RUN \

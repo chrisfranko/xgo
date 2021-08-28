@@ -3,9 +3,9 @@
 #
 # Released under the MIT license.
 
-FROM karalabe/xgo-base
+FROM chrisfranko/xgo-base
 
-MAINTAINER Péter Szilágyi <peterke@gmail.com>
+MAINTAINER Christopher Franko <chrisjfranko@gmail.com>
 
 # Configure the root Go distribution and bootstrap based on it
 ENV GO_VERSION 191
