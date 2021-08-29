@@ -50,13 +50,16 @@ ENV OSX_SDK     MacOSX10.11.sdk
 ENV OSX_NDK_X86 /usr/local/osx-ndk-x86
 
 RUN \
+  apt-get install -y cmake libz-dev
+
+RUN \
   OSX_SDK_PATH=https://s3.dockerproject.org/darwin/v2/$OSX_SDK.tar.xz && \
   $FETCH $OSX_SDK_PATH dd228a335194e3392f1904ce49aff1b1da26ca62       && \
   \
   git clone https://github.com/tpoechtrager/osxcross.git && \
   mv `basename $OSX_SDK_PATH` /osxcross/tarballs/        && \
   \
-  sed -i -e 's|-march=native||g' /osxcross/build_clang.sh /osxcross/wrapper/build.sh && \
+  sed -i -e 's|-march=native||g' /osxcross/build_clang.sh /osxcross/wrapper/build_wrapper.sh && \
   UNATTENDED=yes OSX_VERSION_MIN=10.6 /osxcross/build.sh                             && \
   mv /osxcross/target $OSX_NDK_X86                                                   && \
   \
@@ -74,11 +77,18 @@ ADD update_ios.sh /update_ios.sh
 ENV UPDATE_IOS /update_ios.sh
 RUN chmod +x $UPDATE_IOS
 
+#RUN \
+#  IOS_SDK_PATH=https://raw.githubusercontent.com/Sn0wCooder/theos-sdks/master/iPhoneOS9.3.sdk.tbz2
+#RUN \     
+#  $FETCH $IOS_SDK_PATH db5ecf91617abf26d3db99e769bd655b943905e5
+
+RUN wget https://raw.githubusercontent.com/Sn0wCooder/theos-sdks/master/iPhoneOS9.3.sdk.tbz2
 RUN \
-  IOS_SDK_PATH=https://sdks.website/dl/iPhoneOS9.3.sdk.tbz2     && \
-  $FETCH $IOS_SDK_PATH db5ecf91617abf26d3db99e769bd655b943905e5 && \
-  mv `basename $IOS_SDK_PATH` iPhoneOS9.3.sdk.tar.bz2           && \
-  $UPDATE_IOS /iPhoneOS9.3.sdk.tar.bz2                          && \
+  mv `basename https://raw.githubusercontent.com/Sn0wCooder/theos-sdks/master/iPhoneOS9.3.sdk.tbz2` iPhoneOS9.3.sdk.tar.bz2
+  #mv iPhoneOS9.3.sdk.tbz2 iPhoneOS9.3.sdk.bz2
+RUN \           
+  $UPDATE_IOS /iPhoneOS9.3.sdk.tar.bz2
+RUN \                          
   rm -rf /iPhoneOS9.3.sdk.tar.bz2
 
 # Configure the container for Android cross compilation
