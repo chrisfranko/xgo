@@ -3,6 +3,6 @@
 #
 # Released under the MIT license.
 
-FROM chrisfranko/xgo-1.13.x
+FROM chrisfranko/xgo-1.17.x
 
 MAINTAINER Christopher Franko <chrisjfranko@gmail.com>
